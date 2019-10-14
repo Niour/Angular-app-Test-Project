@@ -43,6 +43,7 @@ export class RecipeEditComponent implements OnInit {
     } else {
       this.recipeService.addRecipe(this.recipeForm.value);
     }
+    this.onCancel();
   }
 
   onAddIngredient() {
@@ -54,8 +55,14 @@ export class RecipeEditComponent implements OnInit {
     );
   }
 
+  onDeleteIngredient(index: number) {
+    // tslint:disable-next-line: no-angle-bracket-type-assertion
+    (<FormArray> this.recipeForm.get('ingredients')).removeAt(index);
+  }
+
   onCancel() {
-    this.recipeForm.reset();
+    this.router.navigate(['../'], {relativeTo: this.route});
+    // this.recipeForm.reset();
   }
 
   private initForm() {
